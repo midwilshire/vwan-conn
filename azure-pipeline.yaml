@@ -1,0 +1,33 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+parameters:
+- name: SourceVirtualWanHubResourceId
+  displayName: Source Virtual WanHubResource ID
+  type: string
+- name: DestinationVirtualWanHubResourceId
+  displayName: Destination Virtual WanHubResource ID
+  type: string
+- name: RemoteVirtualNetworkResourceId
+  displayName: Remote Virtual NetworkResource Id
+  type: string
+
+
+variables:
+  ServiceConnectionName: "nx-devops-mgmt"
+  ManagementGroupPrefix: "nx"
+  Location: "eastus2"
+  LoggingResourceGroupName: "nx-eus2-mgmt-logging-001"
+  HubNetworkSubId: "1e35dc95-64a6-48a0-a5ff-8cd94542c990"
+  SpokeNetworkSubId: "1e35dc95-64a6-48a0-a5ff-8cd94542c990"
+  SpokeNetworkResourceGroupName: "Spoke_Networking_POC"
+  RunNumber: $(Build.BuildNumber)
+
+
+jobs:
+- job:
+  steps:
+  - script: echo Hello world!
+    displayName: 'Placeholder step'
