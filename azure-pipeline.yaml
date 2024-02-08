@@ -29,5 +29,5 @@ variables:
 jobs:
 - job:
   steps:
-  - script: echo Hello world!
-    displayName: 'Placeholder step'
+  - script: echo Hello Automation!
+    displayName: 'Welcome Step'
