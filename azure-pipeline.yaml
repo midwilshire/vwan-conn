@@ -43,6 +43,7 @@ stages:
         ScriptPath: './src/Remove-HubVnetConnection.ps1'
         ScriptArguments: '-VirtualWanHubResourceId "${{ parameters.SourceVirtualWanHubResourceId }}" -ConnectionName "${{ parameters.SourceConnectionName }}"'
         azurePowerShellVersion: 'LatestVersion'
+        pwsh: true
 
 - stage: Connect2BU
 
