@@ -42,12 +42,13 @@ stages:
       displayName: Disconnect
       name: disconnect
       inputs:
-        azureSubscription: $(ServiceConnectionName)
+        azureSubscription: '$(ServiceConnectionName)'
         scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          $resourceGroup = $(SourceVirtualWanHubResourceId).Split("/")[4]
-          Write-Output $resourceGroup
+        scriptLocation: 'scriptPath'
+        scriptPath: './srcRemove-HubVnetConnection.ps1'
+        arguments: > 
+         -VirtualWanHubResourceId "${{ parameters.SourceVirtualWanHubResourceId }}"
+         -ConnectionName "${{ parameters.SourceConnectionName }}"
 
 - stage: Connect
 
