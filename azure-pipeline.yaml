@@ -35,6 +35,9 @@ stages:
 
     - script: |
         echo 'Disconnect'
+        ls -la
+        cd src
+        ls -la
 
     - task: AzureCLI@2
       displayName: Disconnect
