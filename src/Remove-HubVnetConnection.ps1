@@ -1,4 +1,3 @@
-[CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
 param(
     [string]$VirtualWanHubResourceId,
     [string]$VirtualNetworkResourceId,
