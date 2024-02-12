@@ -30,6 +30,8 @@ stages:
   jobs:
   - job:
     steps:
+    - checkout: self
+      displayName: Checkout Repo
 
     - script: |
         echo 'Disconnect'
@@ -41,7 +43,7 @@ stages:
         azureSubscription: '$(ServiceConnectionName)'
         scriptType: 'bash'
         scriptLocation: 'scriptPath'
-        scriptPath: './src/Remove-HubVnetConnection.ps1'
+        scriptPath: 'src/Remove-HubVnetConnection.ps1'
         arguments: > 
          -VirtualWanHubResourceId "${{ parameters.SourceVirtualWanHubResourceId }}"
          -ConnectionName "${{ parameters.SourceConnectionName }}"
