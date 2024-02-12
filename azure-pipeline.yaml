@@ -46,12 +46,10 @@ stages:
       name: disconnect
       inputs:
         azureSubscription: '$(ServiceConnectionName)'
-        scriptType: 'bash'
+        scriptType: 'pscore'
         scriptLocation: 'scriptPath'
         scriptPath: './src/Remove-HubVnetConnection.ps1'
-        arguments: > 
-         -VirtualWanHubResourceId "${{ parameters.SourceVirtualWanHubResourceId }}"
-         -ConnectionName "${{ parameters.SourceConnectionName }}"
+        arguments: '-VirtualWanHubResourceId "${{ parameters.SourceVirtualWanHubResourceId }}" -ConnectionName "${{ parameters.SourceConnectionName }}"'
 
 - stage: Connect
 
