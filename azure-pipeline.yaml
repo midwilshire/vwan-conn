@@ -36,8 +36,10 @@ stages:
     - script: |
         echo 'Disconnect'
         ls -la
+        pwd
         cd src
         ls -la
+        pwd
 
     - task: AzureCLI@2
       displayName: Disconnect
@@ -46,7 +48,7 @@ stages:
         azureSubscription: '$(ServiceConnectionName)'
         scriptType: 'bash'
         scriptLocation: 'scriptPath'
-        scriptPath: 'src/Remove-HubVnetConnection.ps1'
+        scriptPath: './src/Remove-HubVnetConnection.ps1'
         arguments: > 
          -VirtualWanHubResourceId "${{ parameters.SourceVirtualWanHubResourceId }}"
          -ConnectionName "${{ parameters.SourceConnectionName }}"
