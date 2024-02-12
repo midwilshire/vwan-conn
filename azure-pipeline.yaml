@@ -50,6 +50,7 @@ stages:
 
   jobs:
   - job:
+    pool: server 
     steps:
     - checkout: self
       displayName: Checkout Repo
@@ -79,6 +80,7 @@ stages:
 - stage: Rollback
   jobs:
   - job:
+    pool: server 
     steps:
 
     - task: ManualValidation@0
