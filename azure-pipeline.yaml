@@ -10,6 +10,9 @@ parameters:
 - name: SourceConnectionName
   displayName: Source Peering Connection Name
   type: string
+- name: DestinationSubscriptioneId
+  displayName: Destination Subscription ID
+  type: string
 - name: DestinationVirtualWanHubResourceId
   displayName: Destination Virtual WanHubResource ID
   type: string
@@ -57,7 +60,7 @@ stages:
       inputs:
         deploymentScope: 'Subscription'
         azureResourceManagerConnection: '$(ServiceConnectionName)'
-        subscriptionId: $(HubNetworkSubId)
+        subscriptionId: ${{ parameters.DestinationSubscriptioneId }}
         location: 'East US 2'
         templateLocation: 'Linked artifact'
         csmFile: 'src/main.bicep'
