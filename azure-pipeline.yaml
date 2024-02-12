@@ -26,7 +26,7 @@ variables:
 
 stages:
 
-- stage: Remove
+- stage: DisconnectCorp
   jobs:
   - job:
     steps:
@@ -34,12 +34,7 @@ stages:
       displayName: Checkout Repo
 
     - script: |
-        echo 'Disconnect'
-        ls -la
-        pwd
-        cd src
-        ls -la
-        pwd
+        echo 'Disconnecting from Corp'
 
     - task: AzureCLI@2
       displayName: Disconnect
@@ -51,7 +46,7 @@ stages:
         scriptPath: './src/Remove-HubVnetConnection.ps1'
         arguments: '-VirtualWanHubResourceId "${{ parameters.SourceVirtualWanHubResourceId }}" -ConnectionName "${{ parameters.SourceConnectionName }}"'
 
-- stage: Connect
+- stage: Connect2BU
 
   jobs:
   - job:
@@ -73,7 +68,7 @@ stages:
           -parVirtualWanHubResourceId ${{ parameters.DestinationVirtualWanHubResourceId }}
           -parRemoteVirtualNetworkResourceId ${{ parameters.RemoteVirtualNetworkResourceId }}
 
-- stage: Rollback
+- stage: Rollback2Corp
   jobs:
   - job:
     pool: server 
