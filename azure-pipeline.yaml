@@ -25,22 +25,70 @@ variables:
   SpokeNetworkResourceGroupName: "Spoke_Networking_POC"
   RunNumber: $(Build.BuildNumber)
 
+stages:
 
-jobs:
-- job:
-  steps:
-  - checkout: self
-    displayName: Checkout Repo
+- stage: Remove
+  jobs:
+  - job:
+    steps:
 
-  - task: AzureResourceManagerTemplateDeployment@3
-    inputs:
-      deploymentScope: 'Subscription'
-      azureResourceManagerConnection: 'nx-devops-mgmt'
-      subscriptionId: $(HubNetworkSubId)
-      location: 'East US 2'
-      templateLocation: 'Linked artifact'
-      csmFile: 'src/main.bicep'
-      deploymentMode: 'Incremental'
-      overrideParameters: >
-        -parVirtualWanHubResourceId ${{ parameters.DestinationVirtualWanHubResourceId }}
-        -parRemoteVirtualNetworkResourceId ${{ parameters.RemoteVirtualNetworkResourceId }}
+    - script: |
+        echo 'Disconnect'
+
+    - task: AzureCLI@2
+      displayName: Disconnect
+      name: disconnect
+      inputs:
+        azureSubscription: $(ServiceConnectionName)
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          $resourceGroup = $(SourceVirtualWanHubResourceId).Split("/")[4]
+          Write-Output $resourceGroup
+
+- stage: Connect
+
+  jobs:
+  - job:
+    steps:
+    - checkout: self
+      displayName: Checkout Repo
+    
+    - task: ManualValidation@0
+      timeoutInMinutes: 1440 # task times out in 1 day
+      inputs:
+        notifyUsers: |
+          realjonathanryan@ymail.com
+          realjonathanryan@gmail.com
+        instructions: 'Please validate the build configuration and resume'
+        onTimeout: 'resume'
+
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Subscription'
+        azureResourceManagerConnection: 'nx-devops-mgmt'
+        subscriptionId: $(HubNetworkSubId)
+        location: 'East US 2'
+        templateLocation: 'Linked artifact'
+        csmFile: 'src/main.bicep'
+        deploymentMode: 'Incremental'
+        overrideParameters: >
+          -parVirtualWanHubResourceId ${{ parameters.DestinationVirtualWanHubResourceId }}
+          -parRemoteVirtualNetworkResourceId ${{ parameters.RemoteVirtualNetworkResourceId }}
+
+- stage: Rollback
+  jobs:
+  - job:
+    steps:
+
+    - task: ManualValidation@0
+      timeoutInMinutes: 1440 # task times out in 1 day
+      inputs:
+        notifyUsers: |
+          realjonathanryan@ymail.com
+          realjonathanryan@gmail.com
+        instructions: 'Please validate the build configuration and resume'
+        onTimeout: 'resume'
+
+    - script: |
+        echo 'Rollback'
