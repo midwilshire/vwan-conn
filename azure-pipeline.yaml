@@ -69,7 +69,7 @@ stages:
 
 - stage: OptionalRollback2Corp
   jobs:
-  - job:
+  - job: Rollback
     pool: server 
     steps:
 
@@ -83,6 +83,7 @@ stages:
         onTimeout: 'resume'
 
   - job:
+    dependsOn: Rollback
     steps:
     - script: |
         echo 'Rollback'
