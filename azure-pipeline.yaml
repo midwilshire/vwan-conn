@@ -7,6 +7,9 @@ parameters:
 - name: SourceVirtualWanHubResourceId
   displayName: Source Virtual WanHubResource ID
   type: string
+- name: SourceConnectionName
+  displayName: Source Peering Connection Name
+  type: string
 - name: DestinationVirtualWanHubResourceId
   displayName: Destination Virtual WanHubResource ID
   type: string
