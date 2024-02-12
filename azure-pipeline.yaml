@@ -36,15 +36,13 @@ stages:
     - script: |
         echo 'Disconnecting from Corp'
 
-    - task: AzureCLI@2
-      displayName: Disconnect
-      name: disconnect
+    - task: AzurePowerShell@5
       inputs:
         azureSubscription: '$(ServiceConnectionName)'
-        scriptType: 'pscore'
-        scriptLocation: 'scriptPath'
-        scriptPath: './src/Remove-HubVnetConnection.ps1'
-        arguments: '-VirtualWanHubResourceId "${{ parameters.SourceVirtualWanHubResourceId }}" -ConnectionName "${{ parameters.SourceConnectionName }}"'
+        ScriptType: 'FilePath'
+        ScriptPath: './src/Remove-HubVnetConnection.ps1'
+        ScriptArguments: '-VirtualWanHubResourceId "${{ parameters.SourceVirtualWanHubResourceId }}" -ConnectionName "${{ parameters.SourceConnectionName }}"'
+        azurePowerShellVersion: 'LatestVersion'
 
 - stage: Connect2BU
 
