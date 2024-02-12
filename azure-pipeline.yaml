@@ -29,5 +29,18 @@ variables:
 jobs:
 - job:
   steps:
-  - script: echo Hello Automation!
-    displayName: 'Welcome Step'
+  - checkout: self
+    displayName: Checkout Repo
+
+  - task: AzureResourceManagerTemplateDeployment@3
+    inputs:
+      deploymentScope: 'Subscription'
+      azureResourceManagerConnection: 'nx-devops-mgmt'
+      subscriptionId: $(HubNetworkSubId)
+      location: 'East US 2'
+      templateLocation: 'Linked artifact'
+      csmFile: 'src/main.bicep'
+      deploymentMode: 'Incremental'
+      overrideParameters: >
+        -parVirtualWanHubResourceId ${{ parameters.DestinationVirtualWanHubResourceId }}
+        -parRemoteVirtualNetworkResourceId ${{ parameters.RemoteVirtualNetworkResourceId }}
