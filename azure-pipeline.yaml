@@ -68,7 +68,7 @@ stages:
           -parVirtualWanHubResourceId ${{ parameters.DestinationVirtualWanHubResourceId }}
           -parRemoteVirtualNetworkResourceId ${{ parameters.RemoteVirtualNetworkResourceId }}
 
-- stage: Rollback2Corp
+- stage: OptionalRollback2Corp
   jobs:
   - job:
     pool: server 
