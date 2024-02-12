@@ -83,7 +83,7 @@ stages:
         instructions: 'Please validate the build configuration and resume'
         onTimeout: 'resume'
 
-    - job:
-      steps:
-      - script: |
-          echo 'Rollback'
+  - job:
+    steps:
+    - script: |
+        echo 'Rollback'
