@@ -20,7 +20,6 @@ parameters:
 
 variables:
   ServiceConnectionName: "nx-devops-mgmt"
-  ManagementGroupPrefix: "nx"
   HubNetworkSubId: "1e35dc95-64a6-48a0-a5ff-8cd94542c990"
   RunNumber: $(Build.BuildNumber)
 
@@ -57,7 +56,7 @@ stages:
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
         deploymentScope: 'Subscription'
-        azureResourceManagerConnection: 'nx-devops-mgmt'
+        azureResourceManagerConnection: '$(ServiceConnectionName)'
         subscriptionId: $(HubNetworkSubId)
         location: 'East US 2'
         templateLocation: 'Linked artifact'
