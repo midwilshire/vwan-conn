@@ -21,11 +21,7 @@ parameters:
 variables:
   ServiceConnectionName: "nx-devops-mgmt"
   ManagementGroupPrefix: "nx"
-  Location: "eastus2"
-  LoggingResourceGroupName: "nx-eus2-mgmt-logging-001"
   HubNetworkSubId: "1e35dc95-64a6-48a0-a5ff-8cd94542c990"
-  SpokeNetworkSubId: "1e35dc95-64a6-48a0-a5ff-8cd94542c990"
-  SpokeNetworkResourceGroupName: "Spoke_Networking_POC"
   RunNumber: $(Build.BuildNumber)
 
 stages:
@@ -45,7 +41,7 @@ stages:
         azureSubscription: '$(ServiceConnectionName)'
         scriptType: 'bash'
         scriptLocation: 'scriptPath'
-        scriptPath: './srcRemove-HubVnetConnection.ps1'
+        scriptPath: './src/Remove-HubVnetConnection.ps1'
         arguments: > 
          -VirtualWanHubResourceId "${{ parameters.SourceVirtualWanHubResourceId }}"
          -ConnectionName "${{ parameters.SourceConnectionName }}"
