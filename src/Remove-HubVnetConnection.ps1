@@ -7,4 +7,4 @@ param(
 $resourceGroup = $VirtualWanHubResourceId.Split("/")[4]
 $virtualHubName = $VirtualWanHubResourceId.Split("/")[8]
 
-Get-AzVirtualHubVnetConnection -ResourceGroupName $resourceGroup -VirtualHubName $virtualHubName -Name $ConnectionName | Remove-AzVirtualHubVnetConnection
+Get-AzVirtualHubVnetConnection -ResourceGroupName $resourceGroup -VirtualHubName $virtualHubName -Name $ConnectionName | Remove-AzVirtualHubVnetConnection -Force
